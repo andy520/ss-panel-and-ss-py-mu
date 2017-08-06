@@ -159,10 +159,8 @@ install_node(){
 	sed -i '2d' /root/shadowsocks/userapiconfig.py
 	sed -i "2a\NODE_ID = ${UserNODE_ID}" /root/shadowsocks/userapiconfig.py
 	# 启用supervisord
-	echo_ssr_conf > /etc/supervisor/conf.d/ssr.conf
-  sed -i '$a [program:ssr]\ncommand = python /root/shadowsocks/server.py\nuser = root\nautostart = true\nautorestart = true' /etc/supervisord.conf
-	supervisord
-	echo 'iptables-restore /etc/sysconfig/iptables' >> /etc/rc.local
+        echo -e '[program:ssr-mu]\ncommand = python /root/shadowsocks/server.py\nuser = root\nautostart = true' > /etc/supervisor/conf.d/ssr-mu.conf
+        echo 'iptables-restore /etc/sysconfig/iptables' >> /etc/rc.local
 	chmod +x /etc/rc.d/rc.local
 	echo "#############################################################"
 	echo "# 安装完成，节点即将重启使配置生效                          #"
